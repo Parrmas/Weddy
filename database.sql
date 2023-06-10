@@ -14,7 +14,11 @@ CREATE TABLE admin_users (
 -- Create the table for types
 CREATE TABLE types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    count INTEGER(50) NOT NULL,
+    price INTEGER(50) NOT NULL,
+    note TEXT
 );
 
 -- Create the table for shifts

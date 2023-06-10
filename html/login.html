@@ -1,35 +1,3 @@
-<?php
-session_start();
-
-// Check if the login form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include 'connection.php';
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $query = "SELECT * FROM admin_users WHERE id=1";
-    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-    while($row = mysqli_fetch_array($result))
-        {   
-            $admin_username = $row['username'];
-            $admin_password = $row['password'];
-        }
-
-    // Validate the login credentials (you'll need to replace this with your own validation logic)
-    if ($username === $admin_username && $password === $admin_password) {
-        // Set the admin's session information
-        $_SESSION['admin'] = true;
-        $_SESSION['username'] = $admin_username;
-        
-        header('Location: dashboard.php');
-        exit();
-    } else {
-        $error = "Invalid username or password";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -52,25 +20,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form method="POST" action="">
+                                        <form>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com"  name="username" required />
+                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password"  name="password" required />
+                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                            </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <button type="submit" class="btn btn-primary">Login</a>
+                                                <a class="small" href="password.html">Forgot Password?</a>
+                                                <a class="btn btn-primary" href="index.html">Login</a>
                                             </div>
                                         </form>
                                     </div>
-                                    <?php if (isset($error)): ?>
-                                        <div class="card-footer text-center py-3">
-                                            <p class="text-bg-danger"><?= $error; ?></p>
-                                        </div>
-                                    <?php endif; ?>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,144 +1,229 @@
 <?php
-// Check if the admin is logged in
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: login.php');
-    exit();
-}
+include 'connection.php';
 
 // Handle booking form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $person1_name = $_POST['person1_name'];
-    $person2_name = $_POST['person2_name'];
-    $phone_number = $_POST['phone_number'];
+    $name1 = $_POST['name1'];
+    $name2 = $_POST['name2'];
+    $phone = $_POST['phone'];
     $date = $_POST['date'];
-    $deposit = $_POST['deposit'];
-    $num_of_tables = $_POST['num_of_tables'];
-    $num_of_reserved_tables = $_POST['num_of_reserved_tables'];
-    $type_id = $_POST['type'];
-    $shift_id = $_POST['shift'];
-    $selected_dishes = $_POST['dishes'];
-    $selected_services = $_POST['services'];
+    $type = $_POST['type'];
+    $shift = $_POST['shift'];
+    $amount = $_POST['amount'];
+    $noOfTable = $_POST['noOfTable'];
+    $noOfReservedTable = $_POST['noOfReservedTable'];
+    $dishes = $_POST['dishes'];
+    $services = $_POST['services'];
 
-    // Process the booking data and store it in the database
-    // Add your database code here
+    $query = "INSERT INTO bookings (person_1_name, person_2_name, phone, date, amount, no_of_table, no_of_reserved_table, type_id, shift_id)
+     VALUES ('$name1', '$name2', '$phone', '$date', '$amount', '$noOfTable', '$noOfReservedTable', '$type', '$shift')";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+    
+    $booking_id = $db->insert_id;
+    $query2 = "INSERT INTO booking_dishes (booking_id, dish_id) VALUES ";
 
-    // Clear the form fields after submission
-    $person1_name = '';
-    $person2_name = '';
-    $phone_number = '';
-    $date = '';
-    $deposit = '';
-    $num_of_tables = '';
-    $num_of_reserved_tables = '';
-    $type_id = '';
-    $shift_id = '';
-    $selected_dishes = [];
-    $selected_services = [];
+    foreach($dishes as $index => $dish){
+        $query2 .= "('$booking_id', '$dish')";
+
+        if($index != count($dishes) - 1) $query2 .= ", ";
+    }
+
+    $result = mysqli_query($db, $query2) or die(mysqli_error($db));
+
+    $query3 = "INSERT INTO booking_services (booking_id, service_id) VALUES ";
+
+    foreach($services as $index => $service){
+        $query3 .= "('$booking_id', '$service')";
+
+        if($index != count($service) - 1) $query3 .= ", ";
+    }
+
+    $result = mysqli_query($db, $query3) or die(mysqli_error($db));
+
+
+    header('Location: thankyou.php');
+    exit();
 }
 
 // Fetch types from the database
 // Add your database code here to retrieve the types
-$types = [
-    ['id' => 1, 'type' => 'Type 1'],
-    ['id' => 2, 'type' => 'Type 2'],
-    ['id' => 3, 'type' => 'Type 3'],
-];
+$query = "SELECT * FROM types";
+$types = mysqli_query($db, $query) or die(mysqli_error($db));
 
 // Fetch shifts from the database
 // Add your database code here to retrieve the shifts
-$shifts = [
-    ['id' => 1, 'shift_name' => 'Morning', 'start_time' => '09:00:00', 'end_time' => '12:00:00'],
-    ['id' => 2, 'shift_name' => 'Afternoon', 'start_time' => '13:00:00', 'end_time' => '17:00:00'],
-    ['id' => 3, 'shift_name' => 'Evening', 'start_time' => '18:00:00', 'end_time' => '21:00:00'],
-];
+$query = "SELECT * FROM shifts";
+$shifts = mysqli_query($db, $query) or die(mysqli_error($db));
 
 // Fetch dishes from the database
 // Add your database code here to retrieve the dishes
-$dishes = [
-    ['id' => 1, 'dish_name' => 'Dish 1', 'price' => 10.99],
-    ['id' => 2, 'dish_name' => 'Dish 2', 'price' => 19.99],
-    ['id' => 3, 'dish_name' => 'Dish 3', 'price' => 14.99],
-];
+$query = "SELECT * FROM dishes";
+$dishes = mysqli_query($db, $query) or die(mysqli_error($db));
 
 // Fetch services from the database
 // Add your database code here to retrieve the services
-$services = [
-    ['id' => 1, 'service_name' => 'Service 1', 'price' => 5.99],
-    ['id' => 2, 'service_name' => 'Service 2', 'price' => 7.99],
-    ['id' => 3, 'service_name' => 'Service 3', 'price' => 9.99],
-];
+$query = "SELECT * FROM services";
+$services = mysqli_query($db, $query) or die(mysqli_error($db));
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Booking</title>
-</head>
-<body>
-    <h1>Booking</h1>
+<?php include 'headWithoutNav.php'; ?>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center">Đặt tiệc cưới</h1>
+        <form method="POST" action="">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                        Thông tin tiệc cưới
+                </div>
+                <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputName1" type="text" placeholder="Nguyễn Văn A"  name="name1" required />
+                                    <label for="inputName1">Tên chú rể</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputName2" type="text" placeholder="Nguyễn Thị A"  name="name2" required />
+                                    <label for="inputName2">Tên cô dâu</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputPhone" type="text" placeholder="0901234567"  name="phone" required />
+                                    <label for="inputPhone">Điện thoại</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputDate" type="text" placeholder="01/01/2023"  name="date" required />
+                                    <label for="inputDate">Ngày</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <select id="inputType" class="form-select" name="type">
+                                        <?php while($row = mysqli_fetch_array($types)): ?>
+                                            <option value="<?= $row['id']; ?>"><?= $row['name']; ?></option>
+                                        <?php endwhile; ?> 
+                                    </select>
+                                    <label for="inputType">Sảnh</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="form-floating">
+                                    <select id="inputShift" class="form-select" name="shift">
+                                        <?php while($row = mysqli_fetch_array($shifts)): ?>
+                                            <option value="<?= $row['id']; ?>"><?= $row['shift_name']; ?></option>
+                                        <?php endwhile; ?> 
+                                    </select>
+                                    <label for="inputShift">Ca</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputAmount" type="number" placeholder="1000000"  name="amount" required />
+                                    <label for="inputAmount">Tiền đặt cọc</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputNoOfTable" type="number" placeholder="10"  name="noOfTable" required />
+                                    <label for="inputNoOfTable">Số lượng bàn</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputNoOfReservedTable" type="number" placeholder="2"  name="noOfReservedTable" required />
+                                    <label for="inputNoOfReservedTable">Số bàn dự trữ</label>
+                                </div>
+                            </div>
+                        </div>  
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                        Món ăn
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <?php while($row = mysqli_fetch_array($dishes)): ?>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inputDishes<?= $row['id']; ?>" name="dishes[]" value="<?= $row['id']; ?>">
+                                            <label class="form-check-label"><?= $row['name']; ?></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?> 
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                        Dịch vụ
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <?php while($row = mysqli_fetch_array($services)): ?>
+                                <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inputServices<?= $row['id']; ?>" name="services[]" value="<?= $row['id']; ?>">
+                                            <label class="form-check-label"><?= $row['service_name']; ?></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endwhile; ?> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <button type="submit" name="action" value="add" class="btn btn-primary">Gửi</button>
+            </div>
+        </form>
+    </div>
+</main>
+<?php include 'foot.php'; ?>
 
-    <form method="POST" action="">
-        <label>Person 1 Name:</label>
-        <input type="text" name="person1_name" value="<?= $person1_name ?>" required><br>
+<script type="text/javascript">
+$(function () {  
+    $("#inputDate").datepicker({         
+        autoclose: true,         
+        todayHighlight: true,
+        format: "dd/mm/yyyy"
+    }).datepicker('update', new Date());
+});
+</script>
 
-        <label>Person 2 Name:</label>
-        <input type="text" name="person2_name" value="<?= $person2_name ?>"><br>
-
-        <label>Phone Number:</label>
-        <input type="text" name="phone_number" value="<?= $phone_number ?>" required><br>
-
-        <label>Date:</label>
-        <input type="date" name="date" value="<?= $date ?>" required><br>
-
-        <label>Deposit Amount:</label>
-        <input type="number" name="deposit" step="0.01" value="<?= $deposit ?>" required><br>
-
-        <label>Number of Tables:</label>
-        <input type="number" name="num_of_tables" value="<?= $num_of_tables ?>" required><br>
-
-        <label>Number of Reserved Tables:</label>
-        <input type="number" name="num_of_reserved_tables" value="<?= $num_of_reserved_tables ?>" required><br>
-
-        <label>Type:</label>
-        <select name="type" required>
-            <option value="">Select Type</option>
-            <?php foreach ($types as $type) : ?>
-                <option value="<?= $type['id'] ?>" <?= $type_id == $type['id'] ? 'selected' : '' ?>>
-                    <?= $type['type'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br>
-
-        <label>Shift:</label>
-        <select name="shift" required>
-            <option value="">Select Shift</option>
-            <?php foreach ($shifts as $shift) : ?>
-                <option value="<?= $shift['id'] ?>" <?= $shift_id == $shift['id'] ? 'selected' : '' ?>>
-                    <?= $shift['shift_name'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br>
-
-        <label>Dishes:</label>
-        <select name="dishes[]" multiple required>
-            <?php foreach ($dishes as $dish) : ?>
-                <option value="<?= $dish['id'] ?>" <?= in_array($dish['id'], $selected_dishes) ? 'selected' : '' ?>>
-                    <?= $dish['dish_name'] ?> ($<?= $dish['price'] ?>)
-                </option>
-            <?php endforeach; ?>
-        </select><br>
-
-        <label>Services:</label>
-        <select name="services[]" multiple required>
-            <?php foreach ($services as $service) : ?>
-                <option value="<?= $service['id'] ?>" <?= in_array($service['id'], $selected_services) ? 'selected' : '' ?>>
-                    <?= $service['service_name'] ?> ($<?= $service['price'] ?>)
-                </option>
-            <?php endforeach; ?>
-        </select><br>
-
-        <button type="submit">Book</button>
-    </form>
-</body>
-</html>
+<style>
+.form-floating > .date > .form-control {
+    padding: 1rem 0.75rem;
+}
+.form-floating > .date > .form-control {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+</style>

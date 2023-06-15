@@ -44,3 +44,29 @@ CREATE TABLE general_settings (
     logo VARCHAR(100) NOT NULL,
     email_settings TEXT NOT NULL
 );
+
+-- Create the table for bookings
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    person_1_name VARCHAR(50) NOT NULL,
+    person_2_name VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    no_of_table INTEGER(50) NOT NULL,
+    no_of_reserved_table INTEGER(50) NOT NULL,
+    type_id INTEGER(50) NOT NULL,
+    shift_id INTEGER(50) NOT NULL
+);
+
+CREATE TABLE booking_dishes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INTEGER(50) NOT NULL,
+    dish_id INTEGER(50) NOT NULL
+);
+
+CREATE TABLE booking_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INTEGER(50) NOT NULL,
+    service_id INTEGER(50) NOT NULL
+);

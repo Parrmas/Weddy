@@ -44,7 +44,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
                                 Quản lý ca
                             </a>
-                            <a class="nav-link" href="dish.php">
+                            <a class="nav-link" href="dishes.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-lemon"></i></div>
                                 Quản lý món ăn
                             </a>

@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td><?= $row['name']; ?></td>
                             <td><?= $row['type']; ?></td>
                             <td><?= $row['count']; ?></td>
-                            <td><?= $row['price']; ?></td>
+                            <td><?= number_format($row['price']); ?></td>
                             <td><?= $row['note']; ?></td>
                             <td>
                                 <form method="POST" action="">

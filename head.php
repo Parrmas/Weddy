@@ -53,7 +53,7 @@
                                 Quản lý dịch vụ
                             </a>
                             <div class="sb-sidenav-menu-heading">Quản lý chung</div>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="settings.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Cài đặt
                             </a>

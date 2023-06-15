@@ -126,7 +126,7 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                             data-id="<?= $row['id']; ?>"
                                             data-service-name="<?= $row['service_name']; ?>"
                                             data-description="<?= $row['description']; ?>"
-                                            data-price="<?= number_format($row['price']); ?>"
+                                            data-price="<?=$row['price']; ?>"
                                             type="button">Sửa</button>
                                     <button class="btn btn-danger" type="submit" name="action" value="delete">Xóa</button>
                                 </form>

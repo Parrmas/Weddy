@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name1 = $_POST['name1'];
     $name2 = $_POST['name2'];
     $phone = $_POST['phone'];
-    $date = $_POST['date'];
+    $date = date_create_from_format("d/m/Y", $_POST['date']);
     $type = $_POST['type'];
     $shift = $_POST['shift'];
     $amount = $_POST['amount'];
@@ -15,8 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dishes = $_POST['dishes'];
     $services = $_POST['services'];
 
+    $date_formatted = date_format($date,"Y-m-d");
+
     $query = "INSERT INTO bookings (person_1_name, person_2_name, phone, date, amount, no_of_table, no_of_reserved_table, type_id, shift_id)
-     VALUES ('$name1', '$name2', '$phone', '$date', '$amount', '$noOfTable', '$noOfReservedTable', '$type', '$shift')";
+     VALUES ('$name1', '$name2', '$phone', '$date_formatted', '$amount', '$noOfTable', '$noOfReservedTable', '$type', '$shift')";
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     
     $booking_id = $db->insert_id;
@@ -107,6 +109,7 @@ $services = mysqli_query($db, $query) or die(mysqli_error($db));
                             <div class="col-md-4">
                                 <div class="form-floating">
                                     <select id="inputType" class="form-select" name="type">
+                                        <option>----</option>
                                         <?php while($row = mysqli_fetch_array($types)): ?>
                                             <option value="<?= $row['id']; ?>"><?= $row['name']; ?></option>
                                         <?php endwhile; ?> 
@@ -117,6 +120,7 @@ $services = mysqli_query($db, $query) or die(mysqli_error($db));
                             <div class="col-md-4">
                             <div class="form-floating">
                                     <select id="inputShift" class="form-select" name="shift">
+                                        <option>----</option>
                                         <?php while($row = mysqli_fetch_array($shifts)): ?>
                                             <option value="<?= $row['id']; ?>"><?= $row['shift_name']; ?></option>
                                         <?php endwhile; ?> 
@@ -215,6 +219,30 @@ $(function () {
         todayHighlight: true,
         format: "dd/mm/yyyy"
     }).datepicker('update', new Date());
+});
+$('#inputType').change(function(){
+    $.ajax(
+    'ajax.php',
+        {
+            data: { 
+                date: $('#inputDate').val(),
+                type: $('#inputType').val()
+            },
+            success: function(data) {
+                var result = JSON.parse(data);
+
+                $('#inputShift option').each(function () {
+                    if(jQuery.inArray($(this).attr('value'), result.data) !== -1){
+                        $(this).html($(this).html() + ' - đã nhận tiệc');
+                        $(this).attr('disabled', true);
+                    }
+                });
+            },
+            error: function() {
+                alert('There was some error performing the AJAX call!');
+            }
+        }
+    );
 });
 </script>
 

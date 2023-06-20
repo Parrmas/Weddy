@@ -32,9 +32,13 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Cơ bản</div>
+                            <a class="nav-link" href="analytics.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                                Thống kê
+                            </a>
                             <a class="nav-link" href="dashboard.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Quản lý lịch hẹn
+                                Quản lý đơn đặt tiệc
                             </a>
                             <a class="nav-link" href="type.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-house"></i></div>

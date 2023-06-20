@@ -11,6 +11,17 @@
     include 'head.php';
     include 'connection.php';
 
+    if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+
+        if ($action === 'edit') {
+            $id = $_POST['id'];
+
+            $query = "UPDATE bookings SET status = 1 WHERE id='$id'";
+        }
+        $result = mysqli_query($db, $query) or die(mysqli_error($db));
+    }
+
     $bookingId = $_GET['id'];
 
     $query = "
@@ -112,6 +123,23 @@
                                             <?php while ($row = mysqli_fetch_array($result3)): ?>
                                                 <?php echo $row['service_name']; ?> </br>
                                             <?php endwhile; ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Trạng thái:</td>
+                                        <td>
+                                        <?php echo $booking['status'] ? 'Đã duyệt' : 'Chưa duyệt' ?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <input type="hidden" name="id" value="<?= $booking['id']; ?>">
+                                                <button type="submit" name="action" value="edit" class="btn btn-primary">Duyệt</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </table>

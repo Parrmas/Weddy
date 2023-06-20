@@ -21,7 +21,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Quản lý lịch hẹn</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Lịch hẹn đã đặt</li>
+                            <li class="breadcrumb-item active">Đơn tiệc đã đặt</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -39,21 +39,10 @@
                                             <th>Sảnh</th>
                                             <th>Ca</th>
                                             <th>Số lượng bàn</th>
+                                            <th>Trạng thái</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Tên chú rể</th>
-                                            <th>Tên cô dâu</th>
-                                            <th>Điện thoại</th>
-                                            <th>Ngày</th>
-                                            <th>Sảnh</th>
-                                            <th>Ca</th>
-                                            <th>Số lượng bàn</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($result)): ?>
                                             <tr>
@@ -68,6 +57,7 @@
                                                 <td><?= $row['type_name']; ?></td>
                                                 <td><?= $row['shift_name']; ?></td>
                                                 <td><?= $row['no_of_table']; ?></td>
+                                                <td><?= $row['status'] ? 'Đã duyệt' : 'Chưa duyệt' ?></td>
                                                 <td><a href='detail.php?id=<?= $row['id']; ?>'>Chi tiết</a></td>
                                             </tr>
                                         <?php endwhile; ?>

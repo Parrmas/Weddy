@@ -127,8 +127,8 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                             data-shift-name="<?= $row['shift_name']; ?>"
                                             data-start-time="<?= $row['start_time']; ?>"
                                             data-end-time="<?= $row['end_time']; ?>"
-                                            type="button">Edit</button>
-                                    <button class="btn btn-danger" type="submit" name="action" value="delete">Delete</button>
+                                            type="button">Sửa</button>
+                                    <button class="btn btn-danger" type="submit" name="action" value="delete">Xóa</button>
                                 </form>
                             </td>
                         </tr>

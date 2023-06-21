@@ -142,11 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <table class="table">
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Count</th>
-                        <th>Price</th>
-                        <th>Note</th>
+                        <th>Tên sảnh</th>
+                        <th>Loại sảnh</th>
+                        <th>Bàn tối đa</th>
+                        <th>Đơn giá bàn</th>
+                        <th>Ghi chú</th>
                         <th>Action</th>
                     </tr>
                     <?php while($row = mysqli_fetch_array($result)): ?>

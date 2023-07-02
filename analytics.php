@@ -6,86 +6,108 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
+include 'head.php';
 include 'connection.php';
 
-// Retrieve the number of bookings
-$query = "SELECT COUNT(*) FROM bookings";
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
-$num_bookings = mysqli_fetch_array($result)[0];
+// Initialize variables
+$bookings_by_day = array();
+$revenue_by_day = array();
+$total_revenue = 0;
+$previous_revenue = 0;
 
-// Calculate the total number of dishes
-$query = "SELECT COUNT(*) FROM dishes";
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
-$num_dishes = mysqli_fetch_array($result)[0];
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $month = $_POST['month'];
 
-// Calculate the total number of services
-$query = "SELECT COUNT(*) FROM services";
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
-$num_services = mysqli_fetch_array($result)[0];
+    $query = "SELECT date, total FROM bookings WHERE MONTH(date) = $month AND paid = '1'";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+}
+else {
+    $month = date('n');
 
-// Calculate the total number of types
-$query = "SELECT COUNT(*) FROM types";
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
-$num_types = mysqli_fetch_array($result)[0];
+    $query = "SELECT date, total FROM bookings WHERE MONTH(date) = $month AND paid = '1'";
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+}
 
-// Calculate the total amount of money from bookings
-$query = "SELECT SUM(amount) FROM bookings";
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
-$total_amount = mysqli_fetch_array($result)[0];
 ?>
 
-<?php include 'head.php'; ?>
-<main>
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Thống kê</h1>
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h2 class="card-title text-primary">Đơn đặt tiệc</h2>
-                        <p class="card-text h3"><?php echo $num_bookings; ?></p>
-                    </div>
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Thống kê doanh thu</h1>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Thống kê
                 </div>
-            </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        <label for="month">Chọn tháng:</label>
+                        <select id="month" name="month" onchange="this.form.submit()">
+                            <option value="1">Tháng 1</option>
+                            <option value="2">Tháng 2</option>
+                            <option value="3">Tháng 3</option>
+                            <option value="4">Tháng 4</option>
+                            <option value="5">Tháng 5</option>
+                            <option value="6">Tháng 6</option>
+                            <option value="7">Tháng 7</option>
+                            <option value="8">Tháng 8</option>
+                            <option value="9">Tháng 9</option>
+                            <option value="10">Tháng 10</option>
+                            <option value="11">Tháng 11</option>
+                            <option value="12">Tháng 12</option>
+                            <!-- Add more options for each month -->
+                        </select>
+                        <button type="submit" class="btn btn-primary">Thống kê</button>
+                    </form>
+                    <table id="datatablesSimple" class="table">
+                        <thead>
+                        <tr>
+                            <td>Ngày</td>
+                            <td>Số đơn tiệc</td>
+                            <td>Doanh thu</td>
+                            <td>Tỉ lệ (%)</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php while ($row = mysqli_fetch_array($result)): ?>
+                            <?php
+                            $date = $row['date'];
+                            $total = $row['total'];
+                            $day = date('d', strtotime($date));
 
-            <div class="col-md-3">
-                <div class="card border-success">
-                    <div class="card-body">
-                        <h2 class="card-title text-success">Món ăn</h2>
-                        <p class="card-text h3"><?php echo $num_dishes; ?></p>
-                    </div>
-                </div>
-            </div>
+                            if (!isset($bookings_by_day[$day])) {
+                                $bookings_by_day[$day] = 0;
+                                $revenue_by_day[$day] = 0;
+                            }
+                            $bookings_by_day[$day]++;
+                            $revenue_by_day[$day]+= $total;
 
-            <div class="col-md-3">
-                <div class="card border-info">
-                    <div class="card-body">
-                        <h2 class="card-title text-info">Dịch vụ</h2>
-                        <p class="card-text h3"><?php echo $num_services; ?></p>
-                    </div>
-                </div>
-            </div>
+                            $total_revenue += $total;
 
-            <div class="col-md-3">
-                <div class="card border-warning">
-                    <div class="card-body">
-                        <h2 class="card-title text-warning">Sảnh</h2>
-                        <p class="card-text h3"><?php echo $num_types; ?></p>
-                    </div>
+                            $revenue_rate = ($total - $previous_revenue) / ($previous_revenue != 0 ? $previous_revenue : 1);
+                            if ($revenue_rate > 1)
+                            {
+                                $revenue_rate = 0;
+                            }
+                            $previous_revenue = $total;
+                            ?>
+                            <tr>
+                                <td><?=$date; ?> </td>
+                                <td><?=$bookings_by_day[$day];?></td>
+                                <td><?=number_format($revenue_by_day[$day],0,".",","); ?> </td>
+                                <td><?=number_format($revenue_rate*100,2); ?> </td>
+                            </tr>
+                        <?php endwhile; ?>
+                        </tbody>
+                        <tfoot>
+                        <td>
+                            Tổng quát: <?=number_format($total_revenue,0,".",",");?>
+                        </td>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
+    </main>
 
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card border-danger">
-                    <div class="card-body">
-                        <h2 class="card-title text-danger">Tổng doanh thu</h2>
-                        <p class="card-text h3">$<?php echo $total_amount; ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
 <?php include 'foot.php'; ?>

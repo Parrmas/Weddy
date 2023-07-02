@@ -14,10 +14,15 @@
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
 
-        if ($action === 'edit') {
+        if ($action === 'edit-status') {
             $id = $_POST['id'];
 
             $query = "UPDATE bookings SET status = 1 WHERE id='$id'";
+        }
+        if ($action === 'edit-payment') {
+            $id = $_POST['id'];
+
+            $query = "UPDATE bookings SET paid = 1 WHERE id='$id'";
         }
         $result = mysqli_query($db, $query) or die(mysqli_error($db));
     }
@@ -56,18 +61,22 @@
                                     <tr>
                                         <td>ID:</td>
                                         <td><?php echo $booking['id']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Tên chú rể:</td>
                                         <td><?php echo $booking['person_1_name']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Tên cô dâu:</td>
                                         <td><?php echo $booking['person_2_name']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Số điện thoại:</td>
                                         <td><?php echo $booking['phone']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Ngày:</td>
@@ -76,26 +85,32 @@
                                             $date_formatted = date_format($date,"d/m/Y");
                                         ?>
                                         <td><?= $date_formatted; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Tiền đặt cọc:</td>
                                         <td><?php echo $booking['amount']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Số bàn:</td>
                                         <td><?php echo $booking['no_of_table']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Số bàn dự phòng:</td>
                                         <td><?php echo $booking['no_of_reserved_table']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Sảnh:</td>
                                         <td><?php echo $booking['type_name']; ?></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Ca:</td>
                                         <td><?php echo $booking['shift_name']; ?></td>
+                                        <td></td>
                                     </tr>
 
                                     <?php
@@ -110,6 +125,7 @@
                                                 <?php echo $row['name']; ?> </br>
                                             <?php endwhile; ?>
                                         </td>
+                                        <td></td>
                                     </tr>
 
                                     <?php
@@ -124,6 +140,7 @@
                                                 <?php echo $row['service_name']; ?> </br>
                                             <?php endwhile; ?>
                                         </td>
+                                        <td></td>
                                     </tr>
 
                                     <tr>
@@ -131,14 +148,23 @@
                                         <td>
                                         <?php echo $booking['status'] ? 'Đã duyệt' : 'Chưa duyệt' ?>
                                         </td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <input type="hidden" name="id" value="<?= $booking['id']; ?>">
+                                                <button type="submit" name="action" value="edit-status" class="btn btn-primary">Duyệt</button>
+                                            </form>
+                                        </td>
                                     </tr>
 
                                     <tr>
                                         <td></td>
                                         <td>
+                                            <?php echo $booking['paid'] ? 'Đã thanh toán' : 'Chưa thanh toán'?>
+                                        </td>
+                                        <td>
                                             <form method="POST" action="">
                                                 <input type="hidden" name="id" value="<?= $booking['id']; ?>">
-                                                <button type="submit" name="action" value="edit" class="btn btn-primary">Duyệt</button>
+                                                <button type="submit" name="action" value="edit-payment" class="btn btn-primary">Thanh toán</button>
                                             </form>
                                         </td>
                                     </tr>

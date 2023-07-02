@@ -19,9 +19,9 @@
 ?>
 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Quản lý lịch hẹn</h1>
+                        <h1 class="mt-4">Quản lý tiệc cưới</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Đơn tiệc đã đặt</li>
+                            <li class="breadcrumb-item active">Quản lý đơn đặt tiệc</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -40,6 +40,8 @@
                                             <th>Ca</th>
                                             <th>Số lượng bàn</th>
                                             <th>Trạng thái</th>
+                                            <th>Tổng</th>
+                                            <th>Thanh toán</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -58,6 +60,8 @@
                                                 <td><?= $row['shift_name']; ?></td>
                                                 <td><?= $row['no_of_table']; ?></td>
                                                 <td><?= $row['status'] ? 'Đã duyệt' : 'Chưa duyệt' ?></td>
+                                                <td><?= $row['total'];?></td>
+                                                <td><?= $row['paid'] ? 'Đã thanh toán' : 'Chưa thanh toán'?></td>
                                                 <td><a href='detail.php?id=<?= $row['id']; ?>'>Chi tiết</a></td>
                                             </tr>
                                         <?php endwhile; ?>

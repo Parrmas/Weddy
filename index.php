@@ -143,7 +143,7 @@ $services = mysqli_query($db, $query) or die(mysqli_error($db));
                 </a>
             </div>
             <div class="u-custom-menu u-nav-container">
-                <ul class="u-nav u-spacing-25 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="index.php" style="padding: 8px 0px;">Trang chủ</a>
+                <ul class="u-nav u-spacing-25 u-unstyled u-nav-1 text-white"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="index.php" style="padding: 8px 0px;">Trang chủ</a>
                     </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="typeList.php" style="padding: 8px 0px;">Sảnh</a>
                     </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="servicesList.php" style="padding: 8px 0px;">Món ăn và dịch vụ</a>
                     </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="shiftList.php" style="padding: 8px 0px;">Ca đãi tiệc</a>

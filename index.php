@@ -344,7 +344,7 @@ $services = mysqli_query($db, $query) or die(mysqli_error($db));
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-expanded-width u-radius-50 u-shape u-shape-round u-white u-shape-1"></div>
         <div class="u-radius-50 u-shape u-shape-round u-white u-shape-2" style="align-items: center"><h1 class="u-text u-text-default u-text-1" style="padding-top: 15px">Người phát triển</h1></div>
-        <div class="u-expanded-width u-list u-list-1" style="text-align: center;padding-bottom: 10px">
+        <div class="u-expanded-width u-list u-list-1" style="text-align: center;padding-bottom: 10px" >
             <div class="u-repeater u-repeater-1">
                 <div class="u-container-style u-list-item u-repeater-item">
                     <div class="u-container-layout u-similar-container u-container-layout-1">

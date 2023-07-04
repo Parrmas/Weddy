@@ -84,7 +84,7 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
 <section class="u-clearfix u-palette-3-light-3 u-section-2" id="sec-b2e1">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-container-style u-group u-radius-50 u-shape-round u-white u-group-1" style="margin-top: 20px">
-            <div class="u-container-layout u-container-layout-1">
+            <div class="u-container-layout u-container-layout-1" style="padding-left:20px;padding-right: 20px">
                 <h1 class="mt-4" style="text-align: center">Danh sách Sảnh</h1>
                 <div class="card mb-4">
                     <div class="card-header">

@@ -13,12 +13,33 @@
 
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
+        
+        if ($action === 'edit-fee') {
+            $id = $_POST['id'];
+            
+            $total = get_value($db,"SELECT total FROM bookings WHERE id = '$id' LIMIT 1");
+            $date = get_value($db,"SELECT date FROM bookings WHERE id = '$id' LIMIT 1");
+            $isUsingFee = get_value($db,"SELECT active FROM general_settings WHERE id = 2 LIMIT 1");
+
+            $now = time(); // or your date as well
+            $your_date = strtotime($date);
+            $datediff = $now - $your_date;
+            $days = round($datediff / (60 * 60 * 24));
+
+            if($days > 0 && $isUsingFee == 1){
+                $fee = $total * $days / 100;
+                $query = "UPDATE bookings SET fee = '$fee' WHERE id='$id'";
+            }else{
+                $query = "UPDATE bookings SET fee = '0' WHERE id='$id'";
+            }
+        }
 
         if ($action === 'edit-status') {
             $id = $_POST['id'];
 
             $query = "UPDATE bookings SET status = 1 WHERE id='$id'";
         }
+
         if ($action === 'edit-payment') {
             $id = $_POST['id'];
 
@@ -141,6 +162,22 @@
                                             <?php endwhile; ?>
                                         </td>
                                         <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Thành tiền:</td>
+                                        <td>
+                                            <?php echo number_format($booking['total'], 0, '.', ','); ?>đ
+                                            <?php if($booking['fee'] > 0): ?>
+                                                (+<?php echo number_format($booking['fee'], 0, '.', ','); ?>đ phí trễ hạn thanh toán)
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <form method="POST" action="">
+                                                <input type="hidden" name="id" value="<?= $booking['id']; ?>">
+                                                <button type="submit" name="action" value="edit-fee" class="btn btn-primary">Cập nhật</button>
+                                            </form>
+                                        </td>
                                     </tr>
 
                                     <tr>

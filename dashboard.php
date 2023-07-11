@@ -13,7 +13,8 @@
 
     $query = "SELECT b.*,t.name as type_name,s.shift_name as shift_name FROM bookings b
     LEFT JOIN types t ON b.type_id = t.id
-    LEFT JOIN shifts s ON b.shift_id = s.id";
+    LEFT JOIN shifts s ON b.shift_id = s.id
+    ORDER BY id ASC";
 
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
 ?>
@@ -32,6 +33,7 @@
                                 <table id="datatablesSimple" class="table">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Tên chú rể</th>
                                             <th>Tên cô dâu</th>
                                             <th>Điện thoại</th>
@@ -48,6 +50,7 @@
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_array($result)): ?>
                                             <tr>
+                                                <td><?= $row['id']; ?></td>
                                                 <td><?= $row['person_1_name']; ?></td>
                                                 <td><?= $row['person_2_name']; ?></td>
                                                 <td><?= $row['phone']; ?></td>
@@ -60,7 +63,7 @@
                                                 <td><?= $row['shift_name']; ?></td>
                                                 <td><?= $row['no_of_table']; ?></td>
                                                 <td><?= $row['status'] ? 'Đã duyệt' : 'Chưa duyệt' ?></td>
-                                                <td><?= $row['total'];?></td>
+                                                <td><?= number_format($row['total'], 0, '.', ',');?>đ</td>
                                                 <td><?= $row['paid'] ? 'Đã thanh toán' : 'Chưa thanh toán'?></td>
                                                 <td><a href='detail.php?id=<?= $row['id']; ?>'>Chi tiết</a></td>
                                             </tr>

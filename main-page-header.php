@@ -9,14 +9,8 @@
     <title>Nhà hàng tiệc cưới Weddy</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
     <link rel="stylesheet" href="home.css" media="screen">
-    <link href="css/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="js/fontawesome.js" crossorigin="anonymous"></script>
-    <script src="js/jquery-3.7.0.min.js"></script>
-    <link rel="stylesheet prefetch" href="css/datepicker.css" />
-    <script src="js/datepicker.js"></script>
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="jquery.js"></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js"></script>
     <meta name="generator" content="Nicepage 5.12.7, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <script type="application/ld+json">{
@@ -28,7 +22,13 @@
     <meta name="theme-color" content="#a68053">
     <meta property="og:title" content="services">
     <meta property="og:type" content="website">
-    <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <link href="css/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="js/fontawesome.js" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet prefetch" href="css/datepicker.css" />
+    <script src="js/datepicker.js"></script></head>
 <body class="u-body u-overlap u-overlap-transparent u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-ec89"><div class="u-clearfix u-sheet u-sheet-1">
         <a href="#" class="u-image u-logo u-image-1" data-image-width="403" data-image-height="403">
             <img src="images/logowedding.png" class="u-logo-image u-logo-image-1">

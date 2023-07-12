@@ -85,159 +85,166 @@ $query = "SELECT * FROM services";
 $services = mysqli_query($db, $query) or die(mysqli_error($db));
 ?>
 
-<?php include 'headWithoutNav.php'; ?>
-<main>
-    <div class="container-fluid px-4">
-        <h1 class="mt-4" style="text-align: center">Đặt tiệc cưới</h1>
-        <form method="POST" action="">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                        Thông tin tiệc cưới
-                </div>
-                <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputName1" type="text" placeholder="Nguyễn Văn A"  name="name1" required />
-                                    <label for="inputName1">Tên chú rể</label>
-                                </div>
+<?php include 'main-page-header.php'?>
+<section class="u-clearfix u-palette-3-light-3 u-section-2" id="sec-b2e1">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-container-style u-group u-radius-50 u-shape-round u-white u-group-1" style="margin-top: 20px">
+            <div class="u-container-layout u-container-layout-1" style="padding-left:20px;padding-right: 20px">
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4" style="text-align: center">Đặt tiệc cưới</h1>
+                    <form method="POST" action="">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                    Thông tin tiệc cưới
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputName2" type="text" placeholder="Nguyễn Thị A"  name="name2" required />
-                                    <label for="inputName2">Tên cô dâu</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputPhone" type="text" placeholder="0901234567"  name="phone" required />
-                                    <label for="inputPhone">Điện thoại</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputDate" type="text" placeholder="01/01/2023"  name="date" required />
-                                    <label for="inputDate">Ngày</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <select id="inputType" class="form-select" name="type">
-                                        <?php while($row = mysqli_fetch_array($types)): ?>
-                                            <option value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>"><?= $row['name']; ?></option>
-                                        <?php endwhile; ?> 
-                                    </select>
-                                    <label for="inputType">Sảnh</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                            <div class="form-floating">
-                                    <select id="inputShift" class="form-select" name="shift">
-                                        <?php while($row = mysqli_fetch_array($shifts)): ?>
-                                            <option value="<?= $row['id']; ?>"><?= $row['shift_name']; ?></option>
-                                        <?php endwhile; ?> 
-                                    </select>
-                                    <label for="inputShift">Ca</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputAmount" type="number" placeholder="1000000"  name="amount" required />
-                                    <label for="inputAmount">Tiền đặt cọc</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputNoOfTable" type="number" placeholder="10"  name="noOfTable" required />
-                                    <label for="inputNoOfTable">Số lượng bàn</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input class="form-control" id="inputNoOfReservedTable" type="number" placeholder="2"  name="noOfReservedTable" required />
-                                    <label for="inputNoOfReservedTable">Số bàn dự trữ</label>
-                                </div>
-                            </div>
-                        </div>  
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                        Món ăn
-                </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <?php while($row = mysqli_fetch_array($dishes)): ?>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div class="form-check">
-                                            <input class="form-check-input dish" type="checkbox" id="inputDishes<?= $row['id']; ?>" name="dishes[]" value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>">
-                                            <label class="form-check-label"><?= $row['name']; ?></label>
+                            <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputName1" type="text" placeholder="Nguyễn Văn A"  name="name1" required />
+                                                <label for="inputName1">Tên chú rể</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputName2" type="text" placeholder="Nguyễn Thị A"  name="name2" required />
+                                                <label for="inputName2">Tên cô dâu</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputPhone" type="text" placeholder="0901234567"  name="phone" required />
+                                                <label for="inputPhone">Điện thoại</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endwhile; ?> 
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                        Dịch vụ
-                </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <?php while($row = mysqli_fetch_array($services)): ?>
-                                <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div class="form-check">
-                                            <input class="form-check-input service" type="checkbox" id="inputServices<?= $row['id']; ?>" name="services[]" value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>">
-                                            <label class="form-check-label"><?= $row['service_name']; ?></label>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputDate" type="text" placeholder="01/01/2023"  name="date" required />
+                                                <label for="inputDate">Ngày</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <select id="inputType" class="form-select" name="type">
+                                                    <?php while($row = mysqli_fetch_array($types)): ?>
+                                                        <option value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>"><?= $row['name']; ?></option>
+                                                    <?php endwhile; ?>
+                                                </select>
+                                                <label for="inputType">Sảnh</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                        <div class="form-floating">
+                                                <select id="inputShift" class="form-select" name="shift">
+                                                    <?php while($row = mysqli_fetch_array($shifts)): ?>
+                                                        <option value="<?= $row['id']; ?>"><?= $row['shift_name']; ?></option>
+                                                    <?php endwhile; ?>
+                                                </select>
+                                                <label for="inputShift">Ca</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputAmount" type="number" placeholder="1000000"  name="amount" required />
+                                                <label for="inputAmount">Tiền đặt cọc</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputNoOfTable" type="number" placeholder="10"  name="noOfTable" required />
+                                                <label for="inputNoOfTable">Số lượng bàn</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="inputNoOfReservedTable" type="number" placeholder="2"  name="noOfReservedTable" required />
+                                                <label for="inputNoOfReservedTable">Số bàn dự trữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                    Món ăn
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <?php while($row = mysqli_fetch_array($dishes)): ?>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input dish" type="checkbox" id="inputDishes<?= $row['id']; ?>" name="dishes[]" value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>">
+                                                        <label class="form-check-label"><?= $row['name']; ?></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endwhile; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                    Dịch vụ
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <?php while($row = mysqli_fetch_array($services)): ?>
+                                            <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input service" type="checkbox" id="inputServices<?= $row['id']; ?>" name="services[]" value="<?= $row['id']; ?>" data-price="<?= $row['price']; ?>">
+                                                        <label class="form-check-label"><?= $row['service_name']; ?></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label><?= number_format($row['price'], 0, '.', ','); ?>đ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endwhile; ?>
                                     </div>
                                 </div>
                             </div>
-                            <?php endwhile; ?> 
                         </div>
-                    </div>
+                        <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-table me-1"></i>
+                                    Tổng kết
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label>Thành tiền: <b id="total">0đ</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0" style="margin: 0 auto; width: 150px;padding-bottom: 10px;">
+                                <button type="submit" name="action" value="add" class="btn btn-primary" style="width: 150px">Gửi</button>
+                            </div>
+                    </form>
                 </div>
             </div>
-            <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Tổng kết
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label>Thành tiền: <b id="total">0đ</b></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mt-4 mb-0" style="margin: 0 auto; width: 150px;">
-                    <button type="submit" name="action" value="add" class="btn btn-primary" style="width: 150px">Gửi</button>
-                </div>
-        </form>
+        </div>
     </div>
-</main>
-<?php include 'foot.php'; ?>
+</section>
+<?php include 'contribution.php'?>
+<?php include 'main-page-footer.php'?>
 
 <script type="text/javascript">
 $(function () {  

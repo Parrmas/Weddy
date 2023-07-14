@@ -86,6 +86,7 @@ $services = mysqli_query($db, $query) or die(mysqli_error($db));
 ?>
 
 <?php include 'main-page-header.php'?>
+<?php include 'quote.php'?>
 <section class="u-clearfix u-palette-3-light-3 u-section-2" id="sec-b2e1">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-container-style u-group u-radius-50 u-shape-round u-white u-group-1" style="margin-top: 20px">

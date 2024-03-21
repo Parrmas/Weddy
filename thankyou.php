@@ -14,6 +14,6 @@
 
 <script>
     function back(){
-        window.location.replace("http://vutt94.io.vn/index.php");
+        window.location.replace("http://vutt94.io.vn/weddy/index.php");
     }      
 </script>

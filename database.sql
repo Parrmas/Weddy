@@ -1,8 +1,4 @@
--- Create the database
-CREATE DATABASE admin_panel;
-
--- Switch to the database
-USE admin_panel;
+ALTER DATABASE lbtpdijm_weddy CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 -- Create the table for admin users
 CREATE TABLE admin_users (
@@ -37,6 +33,13 @@ CREATE TABLE services (
     price DECIMAL(10, 2) NOT NULL
 );
 
+-- Create the table for services
+CREATE TABLE dishes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dish_name VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
 -- Create the table for general settings
 CREATE TABLE general_settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,7 +59,9 @@ CREATE TABLE bookings (
     no_of_table INTEGER(50) NOT NULL,
     no_of_reserved_table INTEGER(50) NOT NULL,
     type_id INTEGER(50) NOT NULL,
-    shift_id INTEGER(50) NOT NULL
+    shift_id INTEGER(50) NOT NULL,
+    total INTEGER(50) NOT NULL,
+
 );
 
 CREATE TABLE booking_dishes (
@@ -70,3 +75,15 @@ CREATE TABLE booking_services (
     booking_id INTEGER(50) NOT NULL,
     service_id INTEGER(50) NOT NULL
 );
+
+ALTER TABLE bookings
+ADD FOREIGN KEY (type_id) REFERENCES types(id),
+ADD FOREIGN KEY (shift_id) REFERENCES shifts(id);
+
+ALTER TABLE booking_dishes
+ADD FOREIGN KEY (booking_id) REFERENCES bookings(id),
+ADD FOREIGN KEY (dish_id) REFERENCES dishes(id);
+
+ALTER TABLE booking_services
+ADD FOREIGN KEY (booking_id) REFERENCES bookings(id),
+ADD FOREIGN KEY (service_id) REFERENCES services(id);

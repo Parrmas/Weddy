@@ -12,7 +12,7 @@ $data = [];
 
 while($row = mysqli_fetch_array($shifts)){
     array_push($data, $row['id']);
-}    
+}
 
 echo json_encode(array('success' => 1, 'data' => $data));
 ?>

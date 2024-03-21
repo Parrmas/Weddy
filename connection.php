@@ -1,7 +1,7 @@
 <?php
- $db = mysqli_connect('localhost', 'aroayrma_preservation', 'Admin123$%') or
+ $db = mysqli_connect('localhost', 'lbtpdijm_weddy', 'Admin@123$%') or
         die ('Unable to connect. Check your connection parameters.');
-        mysqli_select_db($db, 'aroayrma_preservation' ) or die(mysqli_error($db));
+        mysqli_select_db($db, 'lbtpdijm_weddy' ) or die(mysqli_error($db));
 
         function get_value($mysqli, $sql) {
                 $result = $mysqli->query($sql);

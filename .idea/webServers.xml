@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="58421b0e-68e4-412e-b2a1-342f2de1d1c7" name="wedding_reservation" url="http://103.97.126.28">
-        <fileTransfer host="103.97.126.28" port="21" rootFolder="/public_html">
+      <webServer id="58421b0e-68e4-412e-b2a1-342f2de1d1c7" name="wedding_reservation" url="http://vutt94.io.vn">
+        <fileTransfer host="vutt94.io.vn" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

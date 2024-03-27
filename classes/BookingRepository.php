@@ -55,7 +55,7 @@ class BookingRepository
         }
     }
 
-    public function getBookings($id){
+    public function getBooking($id){
         try {
             $this->db = DbConnection::getInstance()->getConnection();
             $stmt = $this->db->prepare("SELECT * FROM bookings WHERE id = ?");
